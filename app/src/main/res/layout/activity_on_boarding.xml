@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentLayoutOnBoarding"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".OnBoardingActivity">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/onBoarding_walkThrough_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/skipBtn_onboarding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:padding="30dp"
+        android:text="Skip"
+        android:textColor="#e0e0e0"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/dots_indicator_linearLayout_onBoarding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
+            android:id="@+id/dots_indicator_onBoarding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            app:dampingRatio="0.3"
+            app:dotsColor="@color/red"
+            app:dotsSize="12dp"
+            app:selectedDotColor="@color/red" />
+        <!--app:dotsStrokeColor="@color/white" #F1E18D
+                    app:dotsStrokeWidth="2dp"-->
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/getStartedBtn_onboarding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/bg_get_started_btn"
+            android:text="Get Started"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

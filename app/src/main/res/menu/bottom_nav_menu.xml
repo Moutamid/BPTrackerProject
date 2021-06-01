@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_readings"
+        android:icon="@drawable/ic_baseline_reading_24"
+        android:title="Readings" />
+
+    <item
+        android:id="@+id/navigation_statistics"
+        android:icon="@drawable/ic_baseline_statistics_outlined_24"
+        android:title="Statistics" />
+
+    <item
+        android:id="@+id/navigation_charts"
+        android:icon="@drawable/ic_baseline_show_chart_24"
+        android:title="Charts" />
+
+</menu>
