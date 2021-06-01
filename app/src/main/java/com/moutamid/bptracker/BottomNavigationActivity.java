@@ -1,8 +1,13 @@
 package com.moutamid.bptracker;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +25,10 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 public class BottomNavigationActivity extends AppCompatActivity {
+    private static final String TAG = "BottomNavigationActivit";
+
+    private RelativeLayout profileLayout;
+    private TextView profileLetterTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +36,10 @@ public class BottomNavigationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bottom_navigation);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
+        profileLayout = findViewById(R.id.profile_bg_bottom_activity);
+        profileLetterTv = findViewById(R.id.profile_text_view_activity_bottom);
+
+        profileLayout.setOnClickListener(profileLayoutClickListener());
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_readings, R.id.navigation_statistics, R.id.navigation_charts)
@@ -67,6 +80,34 @@ public class BottomNavigationActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private View.OnClickListener profileLayoutClickListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Dialog dialog = new Dialog(BottomNavigationActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.dialog_profile);
+                dialog.setCancelable(true);
+                WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+                layoutParams.copyFrom(dialog.getWindow().getAttributes());
+                layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
+                layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+//                dialog.findViewById(R.id.).setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        // CODE HERE
+//                        dialog.dismiss();
+//                    }
+//                });
+                dialog.show();
+                dialog.getWindow().setAttributes(layoutParams);
+
+            }
+        };
     }
 
     @Override
