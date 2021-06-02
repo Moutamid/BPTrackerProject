@@ -44,8 +44,9 @@
                 android:autoSizeTextType="uniform"
                 android:breakStrategy="balanced"
                 android:gravity="center"
+                android:maxLength="1"
                 android:maxLines="1"
-                android:text="T"
+                android:text="Tsdfsd"
                 android:textColor="@color/white" />
 
         </RelativeLayout>

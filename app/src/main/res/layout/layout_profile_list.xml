@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/parent_layout_profiles_list"
+    android:layout_height="wrap_content"
+    android:padding="20dp">
+
+    <RelativeLayout
+        android:id="@+id/profile_bg_profile_list"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="20dp"
+        android:background="@color/red"
+        android:clipChildren="false">
+
+        <TextView
+            android:id="@+id/profile_text_view_profile_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:autoSizeTextType="uniform"
+            android:breakStrategy="balanced"
+            android:gravity="center"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:text="Tsdfsd"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:id="@+id/name_profile_list"
+        android:layout_toStartOf="@id/delete_profile_btn"
+        android:layout_toEndOf="@id/profile_bg_profile_list"
+        android:text="Moutamid" />
+
+    <ImageView
+        android:id="@+id/delete_profile_btn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_baseline_delete_forever_24" />
+
+</RelativeLayout>

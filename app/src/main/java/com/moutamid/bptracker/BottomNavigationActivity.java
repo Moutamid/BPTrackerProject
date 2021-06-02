@@ -2,6 +2,7 @@ package com.moutamid.bptracker;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,11 +30,15 @@ public class BottomNavigationActivity extends AppCompatActivity {
 
     private RelativeLayout profileLayout;
     private TextView profileLetterTv;
+    private Utils utils = new Utils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_navigation);
+
+        utils.storeString(BottomNavigationActivity.this, "weight", "kg");
+        utils.storeString(BottomNavigationActivity.this, "classification", "JNC7");
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         profileLayout = findViewById(R.id.profile_bg_bottom_activity);
@@ -96,13 +101,68 @@ public class BottomNavigationActivity extends AppCompatActivity {
                 layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
                 layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
 
-//                dialog.findViewById(R.id.).setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        // CODE HERE
-//                        dialog.dismiss();
-//                    }
-//                });
+                RelativeLayout profileDialog = dialog.findViewById(R.id.profile_bg_bottom_activity_dialog);
+                TextView profileLetterDialog = dialog.findViewById(R.id.profile_text_view_activity_bottom_dialog);
+                TextView profileNameDialog = dialog.findViewById(R.id.profile_name_dialog);
+
+                profileDialog.setBackgroundColor(color);
+                profileLetterDialog.setText(name);
+                profileNameDialog.setText(name);
+
+                dialog.findViewById(R.id.manage_current_profile_text_view_dialog).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        String profileKey = new Utils().getStoredString(BottomNavigationActivity.this,
+                                "currentProfileKey");
+
+                        Intent intent = new Intent(BottomNavigationActivity.this, CreateProfileActivity.class);
+                        intent.putExtra("key", profileKey);
+
+                        startActivity(intent);
+
+                        dialog.dismiss();
+                    }
+                });
+                dialog.findViewById(R.id.switch_profile_text_view_dialog).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Intent intent = new Intent(BottomNavigationActivity.this, ProfilesListActivity.class);
+                        intent.putExtra("select", true);
+
+                        startActivity(intent);
+
+                        dialog.dismiss();
+                    }
+                });
+                dialog.findViewById(R.id.add_profile_text_view_dialog).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        startActivity(new Intent(BottomNavigationActivity.this, CreateProfileActivity.class));
+
+                        dialog.dismiss();
+                    }
+                });
+                dialog.findViewById(R.id.manage_profile_text_view_dialog).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        startActivity(new Intent(BottomNavigationActivity.this, ProfilesListActivity.class));
+
+                        dialog.dismiss();
+                    }
+                });
+                dialog.findViewById(R.id.settings_text_view_dialog).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        startActivity(new Intent(BottomNavigationActivity.this, SettingsActivity.class));
+
+                        dialog.dismiss();
+                    }
+                });
                 dialog.show();
                 dialog.getWindow().setAttributes(layoutParams);
 
@@ -110,16 +170,28 @@ public class BottomNavigationActivity extends AppCompatActivity {
         };
     }
 
+    private int color;
+    private String name;
+
     @Override
     protected void onResume() {
         super.onResume();
 
-//        if (!new Utils().getStoredBoolean(
-//                BottomNavigationActivity.this, "firstTime")){
-//
-//            startActivity(new Intent(BottomNavigationActivity.this, CreateProfileActivity.class));
-//
-//        }
+        if (!new Utils().getStoredBoolean(
+                BottomNavigationActivity.this, "isFirstProfileAdded")) {
+
+            startActivity(new Intent(BottomNavigationActivity.this, CreateProfileActivity.class));
+
+        } else {
+            name = new Utils().getStoredString(BottomNavigationActivity.this,
+                    "currentProfileName");
+            color = new Utils().getStoredInteger(BottomNavigationActivity.this,
+                    "currentProfileColor");
+
+            profileLayout.setBackgroundColor(color);
+            profileLetterTv.setText(name);
+
+        }
 
     }
 

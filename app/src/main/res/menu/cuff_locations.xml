@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/kjkj12"
+        android:title="Left arm" />
+
+    <item
+        android:id="@+id/kjkj21"
+        android:title="Right arm" />
+
+    <item
+        android:id="@+id/kjkj14"
+        android:title="Left wrist" />
+
+    <item
+        android:id="@+id/kjkj126"
+        android:title="Right wrist" />
+
+
+    <item
+        android:id="@+id/kjkj8"
+        android:title="Left thigh" />
+
+    <item
+        android:id="@+id/kjkj29"
+        android:title="Right thigh" />
+
+    <item
+        android:id="@+id/kjkj31"
+        android:title="Left calf" />
+
+    <item
+        android:id="@+id/kjkj122"
+        android:title="Right calf" />
+
+    <item
+        android:id="@+id/kjkj31w"
+        android:title="Left ankle" />
+
+    <item
+        android:id="@+id/kjkj122w"
+        android:title="Right ankle" />
+
+
+</menu>
