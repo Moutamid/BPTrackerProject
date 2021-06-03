@@ -6,7 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".ui.readings.ReadingsFragment">
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/readings_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_reading_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -14,7 +37,6 @@
         android:layout_margin="20dp"
         android:src="@drawable/ic_baseline_add_24"
         app:fabSize="normal"
-        android:id="@+id/add_reading_fab"
         app:tint="@color/white" />
 
 </RelativeLayout>

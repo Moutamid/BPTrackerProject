@@ -54,7 +54,7 @@ public class CreateProfileActivity extends AppCompatActivity {
             measureGlucose = false;
 
     private TextView saveBtn;
-    private         RelativeLayout colorLayout;
+    private RelativeLayout colorLayout;
 
     private ProgressDialog progressDialog;
 
@@ -110,7 +110,7 @@ public class CreateProfileActivity extends AppCompatActivity {
         return new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!snapshot.exists()){
+                if (!snapshot.exists()) {
                     key = "";
                     progressDialog.dismiss();
                 }
@@ -286,6 +286,7 @@ public class CreateProfileActivity extends AppCompatActivity {
                                 // Handle Color Selection
                                 profileColorInt = color;
                                 colorLayout.setBackgroundColor(profileColorInt);
+                                Log.d(TAG, "onColorSelected: " + color);
                             }
                         })
                         .show();

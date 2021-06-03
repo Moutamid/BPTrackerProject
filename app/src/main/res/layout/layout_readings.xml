@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/parent_layout_readings"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:id="@+id/color_layout_readings"
+        android:layout_width="3dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/header_layout"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:background="@color/red_500" />
+
+    <LinearLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@id/color_layout_readings"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/date_text_viewReading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date 21 02 2021" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="180/"
+                android:id="@+id/systolic_text_viewReading"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/diastolic_text_viewReading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="35 mmHg"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/pulse_text_viewReading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="75 BPM" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/extra_layout"
+            android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pressureStatus_text_viewReading"
+            android:text="Hypertension stage 2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cuffLocation_text_viewReading"
+                android:text="Left arm" />
+
+            <TextView
+                android:id="@+id/bodyPosition_text_viewReading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Seated" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/pp_text_viewReading"
+            android:text="PP: 145 mmHg" />
+
+        <TextView
+            android:id="@+id/map_text_viewReading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MAP: 83 mmHg" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/weight_text_viewReading"
+            android:text="97 kg" />
+
+        <TextView
+            android:id="@+id/spo2_text_viewReading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="97% SpO2" />
+
+        <TextView
+            android:id="@+id/glucose_text_viewReading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="68 mmolL" />
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
