@@ -32,12 +32,15 @@ public class BottomNavigationActivity extends AppCompatActivity {
     private TextView profileLetterTv;
     private Utils utils = new Utils();
 
+    private TextView headerTextView;
+private         BottomNavigationView navView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_navigation);
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView = findViewById(R.id.nav_view);
         profileLayout = findViewById(R.id.profile_bg_bottom_activity);
         profileLetterTv = findViewById(R.id.profile_text_view_activity_bottom);
 
@@ -46,6 +49,8 @@ public class BottomNavigationActivity extends AppCompatActivity {
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_readings, R.id.navigation_statistics, R.id.navigation_charts)
                 .build();
+
+        headerTextView = findViewById(R.id.action_bar_text_view);
 
         loadFragment(new ReadingsFragment());
 
@@ -58,7 +63,6 @@ public class BottomNavigationActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 item.setChecked(true);
 
-                TextView headerTextView = findViewById(R.id.action_bar_text_view);
                 switch (item.getItemId()) {
 
                     case R.id.navigation_statistics:
@@ -188,6 +192,8 @@ public class BottomNavigationActivity extends AppCompatActivity {
             profileLayout.setBackgroundColor(color);
             profileLetterTv.setText(name);
 
+            headerTextView.setText("Readings");
+            navView.setSelectedItemId(R.id.navigation_readings);
             loadFragment(new ReadingsFragment());
         }
 

@@ -85,4 +85,6 @@ dependencies {
     // COLOR PICKER
     implementation 'com.github.dhaval2404:colorpicker:2.0'
 
+    // CHARTS LIBRARY
+    implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
 }

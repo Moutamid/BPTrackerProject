@@ -58,7 +58,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="79"
+                    android:text="0"
+                    android:id="@+id/systolic_average_top"
                     android:textColor="@color/black"
                     android:textSize="25sp" />
 
@@ -74,7 +75,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="79"
+                    android:text="0"
+                    android:id="@+id/diastolic_average_top"
                     android:textColor="@color/black"
                     android:textSize="25sp" />
 
@@ -89,6 +91,7 @@
                 <RelativeLayout
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:id="@+id/average_status_color"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="30dp"
                     android:background="@color/green_400" />
@@ -99,6 +102,11 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
                     android:text="Normal"
+                    android:autoSizeTextType="uniform"
+                    android:breakStrategy="balanced"
+                    android:maxLines="2"
+                    android:layout_marginEnd="10dp"
+                    android:id="@+id/average_status_textview"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -119,6 +127,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:id="@+id/classification_textview"
                     android:text="National Heart Foundation of Australia" />
 
             </LinearLayout>
@@ -140,7 +149,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="1"
+                    android:text="0"
+                    android:id="@+id/total_readings"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -247,33 +257,36 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:id="@+id/systolic_min"
                     android:autoSizeTextType="uniform"
                     android:breakStrategy="balanced"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="79"
+                    android:text="0"
                     android:textColor="@color/black" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:id="@+id/systolic_max"
                     android:autoSizeTextType="uniform"
                     android:breakStrategy="balanced"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="79"
+                    android:text="0"
                     android:textColor="@color/black" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:id="@+id/systolic_average"
                     android:autoSizeTextType="uniform"
                     android:breakStrategy="balanced"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="79"
+                    android:text="0"
                     android:textColor="@color/black" />
 
                 <TextView
@@ -317,14 +330,16 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:id="@+id/diastolic_min"
                     android:autoSizeTextType="uniform"
                     android:breakStrategy="balanced"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="79"
+                    android:text="0"
                     android:textColor="@color/black" />
 
                 <TextView
+                    android:id="@+id/diastolic_max"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -332,10 +347,11 @@
                     android:breakStrategy="balanced"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="79"
+                    android:text="0"
                     android:textColor="@color/black" />
 
                 <TextView
+                    android:id="@+id/diastolic_average"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -343,7 +359,7 @@
                     android:breakStrategy="balanced"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="79"
+                    android:text="0"
                     android:textColor="@color/black" />
 
                 <TextView
@@ -384,6 +400,7 @@
                     android:textColor="@color/black" />
 
                 <TextView
+                    android:id="@+id/pulse_min"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -391,10 +408,11 @@
                     android:breakStrategy="balanced"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="79"
+                    android:text="0"
                     android:textColor="@color/black" />
 
                 <TextView
+                    android:id="@+id/pulse_max"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -402,10 +420,11 @@
                     android:breakStrategy="balanced"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="79"
+                    android:text="0"
                     android:textColor="@color/black" />
 
                 <TextView
+                    android:id="@+id/pulse_average"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -413,7 +432,7 @@
                     android:breakStrategy="balanced"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="79"
+                    android:text="0"
                     android:textColor="@color/black" />
 
                 <TextView
@@ -456,15 +475,29 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:id="@+id/pp_min"
                     android:layout_weight="1"
                     android:autoSizeTextType="uniform"
                     android:breakStrategy="balanced"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="79"
+                    android:text="0"
                     android:textColor="@color/black" />
 
                 <TextView
+                    android:layout_width="0dp"
+                    android:id="@+id/pp_max"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autoSizeTextType="uniform"
+                    android:breakStrategy="balanced"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="0"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/pp_average"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -472,18 +505,7 @@
                     android:breakStrategy="balanced"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="79"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:autoSizeTextType="uniform"
-                    android:breakStrategy="balanced"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:text="79"
+                    android:text="0"
                     android:textColor="@color/black" />
 
                 <TextView
@@ -524,6 +546,7 @@
                     android:textColor="@color/black" />
 
                 <TextView
+                    android:id="@+id/map_min"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -531,10 +554,11 @@
                     android:breakStrategy="balanced"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="79"
+                    android:text="0"
                     android:textColor="@color/black" />
 
                 <TextView
+                    android:id="@+id/map_max"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -542,10 +566,11 @@
                     android:breakStrategy="balanced"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="79"
+                    android:text="0"
                     android:textColor="@color/black" />
 
                 <TextView
+                    android:id="@+id/map_average"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -553,7 +578,7 @@
                     android:breakStrategy="balanced"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="79"
+                    android:text="0"
                     android:textColor="@color/black" />
 
                 <TextView
@@ -687,6 +712,7 @@
                         android:textColor="@color/black" />
 
                     <TextView
+                        android:id="@+id/weight_min"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -694,10 +720,11 @@
                         android:breakStrategy="balanced"
                         android:gravity="center"
                         android:maxLines="1"
-                        android:text="79"
+                        android:text="0"
                         android:textColor="@color/black" />
 
                     <TextView
+                        android:id="@+id/weight_max"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -705,10 +732,11 @@
                         android:breakStrategy="balanced"
                         android:gravity="center"
                         android:maxLines="1"
-                        android:text="79"
+                        android:text="0"
                         android:textColor="@color/black" />
 
                     <TextView
+                        android:id="@+id/weight_average"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -716,7 +744,7 @@
                         android:breakStrategy="balanced"
                         android:gravity="center"
                         android:maxLines="1"
-                        android:text="79"
+                        android:text="0"
                         android:textColor="@color/black" />
 
                     <TextView
@@ -757,6 +785,7 @@
                         android:textColor="@color/black" />
 
                     <TextView
+                        android:id="@+id/spo2_min"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -764,10 +793,11 @@
                         android:breakStrategy="balanced"
                         android:gravity="center"
                         android:maxLines="1"
-                        android:text="79"
+                        android:text="0"
                         android:textColor="@color/black" />
 
                     <TextView
+                        android:id="@+id/spo2_max"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -775,10 +805,11 @@
                         android:breakStrategy="balanced"
                         android:gravity="center"
                         android:maxLines="1"
-                        android:text="79"
+                        android:text="0"
                         android:textColor="@color/black" />
 
                     <TextView
+                        android:id="@+id/spo2_average"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -786,7 +817,7 @@
                         android:breakStrategy="balanced"
                         android:gravity="center"
                         android:maxLines="1"
-                        android:text="79"
+                        android:text="0"
                         android:textColor="@color/black" />
 
                     <TextView
@@ -822,22 +853,23 @@
                         android:autoSizeTextType="uniform"
                         android:breakStrategy="balanced"
                         android:gravity="start"
-                        android:maxLines="1"
                         android:text="Blood glucose"
                         android:textColor="@color/black" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:id="@+id/glucose_min"
                         android:layout_weight="1"
                         android:autoSizeTextType="uniform"
                         android:breakStrategy="balanced"
                         android:gravity="center"
                         android:maxLines="1"
-                        android:text="79"
+                        android:text="0"
                         android:textColor="@color/black" />
 
                     <TextView
+                        android:id="@+id/glucose_max"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -845,10 +877,11 @@
                         android:breakStrategy="balanced"
                         android:gravity="center"
                         android:maxLines="1"
-                        android:text="79"
+                        android:text="0"
                         android:textColor="@color/black" />
 
                     <TextView
+                        android:id="@+id/glucose_average"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -856,7 +889,7 @@
                         android:breakStrategy="balanced"
                         android:gravity="center"
                         android:maxLines="1"
-                        android:text="79"
+                        android:text="0"
                         android:textColor="@color/black" />
 
                     <TextView

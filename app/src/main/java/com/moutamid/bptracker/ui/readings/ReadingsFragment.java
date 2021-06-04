@@ -13,10 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,7 +34,6 @@ import com.moutamid.bptracker.Utils;
 import java.util.ArrayList;
 
 import static android.view.LayoutInflater.from;
-import static com.moutamid.bptracker.R.id.elastic;
 import static com.moutamid.bptracker.R.id.readings_recycler_view;
 
 public class ReadingsFragment extends Fragment {
@@ -146,21 +142,7 @@ public class ReadingsFragment extends Fragment {
 
         conversationRecyclerView.setAdapter(adapter);
 
-        //    if (adapter.getItemCount() != 0) {
-
-        //        noChatsLayout.setVisibility(View.GONE);
-        //        chatsRecyclerView.setVisibility(View.VISIBLE);
-
-        //    }
-
     }
-
-    /*public static int calculateNoOfColumns(Context context, float columnWidthDp) { // For example columnWidthdp=180
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        float screenWidthDp = displayMetrics.widthPixels / displayMetrics.density;
-        int noOfColumns = (int) (screenWidthDp / columnWidthDp + 0.5); // +0.5 for correct rounding to int.
-        return noOfColumns;
-    }*/
 
     private class RecyclerViewAdapterMessages extends Adapter
             <RecyclerViewAdapterMessages.ViewHolderRightMessage> {
