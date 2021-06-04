@@ -17,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
 //        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 //        setContentView(R.layout.activity_main);
 
+        new Utils().storeString(MainActivity.this, "weight", "kg");
+        new Utils().storeString(MainActivity.this, "classification", "JNC7");
+
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         new Handler().postDelayed(new Runnable() {

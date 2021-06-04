@@ -104,19 +104,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/weight_text_viewReading"
-            android:text="97 kg" />
+            android:text="" />
 
         <TextView
             android:id="@+id/spo2_text_viewReading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="97% SpO2" />
+            android:text="" />
 
         <TextView
             android:id="@+id/glucose_text_viewReading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="68 mmolL" />
+            android:text="" />
 
     </LinearLayout>
 

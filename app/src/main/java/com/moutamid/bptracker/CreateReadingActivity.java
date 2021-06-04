@@ -46,6 +46,7 @@ public class CreateReadingActivity extends AppCompatActivity {
             diastolicStr, pulseStr, weightStr, spo2Str, glucoseStr;
 
     private int currentColor;
+    private String profileKey;
 
     private String key;
 
@@ -82,6 +83,8 @@ public class CreateReadingActivity extends AppCompatActivity {
         cuffLocationTextView.setOnClickListener(cuffLocationTextViewListener());
         bodyPositionTextView.setOnClickListener(bodyPositionTextViewListener());
 
+        profileKey = utils.getStoredString(context, "currentProfileKey");
+
         setSaveBtnClickListener();
 
         if (getIntent().hasExtra("key")) {
@@ -89,6 +92,7 @@ public class CreateReadingActivity extends AppCompatActivity {
             progressDialog.show();
 
             databaseReference.child("readings").child(mAuth.getCurrentUser().getUid())
+                    .child(profileKey)
                     .child(key)
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -117,18 +121,32 @@ public class CreateReadingActivity extends AppCompatActivity {
                             //    private int currentColor;
 
                             currentColor = readingModel.getColor();
-                            glucoseStr = readingModel.getGlucose();
-                            spo2Str = readingModel.getSpo2();
-                            weightStr = readingModel.getWeight();
+
+                            if (!readingModel.getGlucose().equals("null"))
+                                glucoseStr = readingModel.getGlucose();
+
+                            if (!readingModel.getSpo2().equals("null"))
+                                spo2Str = readingModel.getSpo2();
+
+                            if (!readingModel.getWeight().equals("null"))
+                                weightStr = readingModel.getWeight();
+
                             pulseStr = readingModel.getPulse();
                             diastolicStr = readingModel.getDiastolic();
                             systolicStr = readingModel.getSystolic();
                             bodyPositionStr = readingModel.getBodyPosition();
                             cuffLocationStr = readingModel.getCuffLocation();
                             dateStr = readingModel.getDate();
-                            glucoseEditText.setText(readingModel.getGlucose());
-                            spo2Edittext.setText(readingModel.getSpo2());
-                            weightEditText.setText(readingModel.getWeight());
+
+                            if (!readingModel.getGlucose().equals("null"))
+                                glucoseEditText.setText(readingModel.getGlucose());
+
+                            if (!readingModel.getSpo2().equals("null"))
+                                spo2Edittext.setText(readingModel.getSpo2());
+
+                            if (!readingModel.getWeight().equals("null"))
+                                weightEditText.setText(readingModel.getWeight());
+
                             pulseEdittext.setText(readingModel.getPulse());
                             diastolicEdittext.setText(readingModel.getDiastolic());
                             systolicEdittext.setText(readingModel.getSystolic());
@@ -313,8 +331,6 @@ public class CreateReadingActivity extends AppCompatActivity {
                 readingModel.setMap((
                         (systolicInt + (2 * diastolicInt)) / 3
                 ) + "");
-
-                String profileKey = utils.getStoredString(context, "currentProfileKey");
 
                 databaseReference.child("readings").child(mAuth.getCurrentUser().getUid())
                         .child(profileKey)

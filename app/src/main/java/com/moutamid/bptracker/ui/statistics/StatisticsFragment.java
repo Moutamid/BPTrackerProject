@@ -28,9 +28,11 @@ public class StatisticsFragment extends Fragment {
         root.findViewById(R.id.date_layout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Context context = getActivity();
 
-                PopupMenu popupMenu = new PopupMenu(context, view);
+                if (getActivity() == null)
+                    return;
+
+                PopupMenu popupMenu = new PopupMenu(getActivity(), view);
                 popupMenu.getMenuInflater().inflate(R.menu.subject_menu, popupMenu.getMenu());
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override

@@ -3,6 +3,7 @@ package com.moutamid.bptracker.ui.readings;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,9 +37,11 @@ import com.moutamid.bptracker.Utils;
 import java.util.ArrayList;
 
 import static android.view.LayoutInflater.from;
+import static com.moutamid.bptracker.R.id.elastic;
 import static com.moutamid.bptracker.R.id.readings_recycler_view;
 
 public class ReadingsFragment extends Fragment {
+    private static final String TAG = "ReadingsFragment";
 
     private FloatingActionButton addReadingsButton;
     private ArrayList<ReadingModel> readingsArrayList = new ArrayList<>();
@@ -79,9 +82,14 @@ public class ReadingsFragment extends Fragment {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (getActivity() == null) {
+                            Log.d(TAG, "onDataChange: " + "activity is null");
+                            return;
+                        }
+
                         if (!snapshot.exists()) {
-                            if (!getActivity().isDestroyed())
-                                progressDialog.dismiss();
+//                            if (!getActivity().isDestroyed())
+                            progressDialog.dismiss();
                             return;
                         }
                         readingsArrayList.clear();
@@ -91,15 +99,15 @@ public class ReadingsFragment extends Fragment {
                         }
 
                         initRecyclerView();
-                        if (!getActivity().isDestroyed())
-                            progressDialog.dismiss();
+//                        if (!getActivity().isDestroyed())
+                        progressDialog.dismiss();
 
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        if (!getActivity().isDestroyed())
-                            progressDialog.dismiss();
+//                        if (!getActivity().isDestroyed())
+                        progressDialog.dismiss();
                         Toast.makeText(getActivity(), error.toException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -107,8 +115,22 @@ public class ReadingsFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
+    }
+
+    private String consonant;
+
     private void initRecyclerView() {
 
+        if (getActivity() == null) {
+            consonant = "null";
+        } else {
+            consonant = new Utils().getStoredString(getActivity(), "weight");
+        }
         conversationRecyclerView = root.findViewById(readings_recycler_view);
         conversationRecyclerView.addItemDecoration(new DividerItemDecoration(conversationRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
         adapter = new RecyclerViewAdapterMessages();
@@ -142,7 +164,6 @@ public class ReadingsFragment extends Fragment {
 
     private class RecyclerViewAdapterMessages extends Adapter
             <RecyclerViewAdapterMessages.ViewHolderRightMessage> {
-        String consonant = new Utils().getStoredString(getActivity(), "weight");
 
         @NonNull
         @Override
@@ -157,17 +178,42 @@ public class ReadingsFragment extends Fragment {
 
             //            LinearLayout extraLayout;
 
-            holder.glucoseTv.setText(model.getGlucose() + "mmolL");
-            holder.spo2Tv.setText(model.getSpo2() + "% SpO2");
-            holder.weightTv.setText(model.getWeight() + consonant);
+            if (model.getGlucose().equals("null")) {
+                holder.glucoseTv.setVisibility(View.GONE);
+            } else {
+                holder.glucoseTv.setText(model.getGlucose() + "mmolL");
+            }
+
+            if (model.getSpo2().equals("null")) {
+                holder.spo2Tv.setVisibility(View.GONE);
+
+            } else {
+                holder.spo2Tv.setText(model.getSpo2() + "% SpO2");
+            }
+
+            if (model.getWeight().equals("null")) {
+                holder.weightTv.setVisibility(View.GONE);
+
+            } else {
+                holder.weightTv.setText(model.getWeight() + consonant);
+            }
+
             holder.mapTv.setText("MAP: " + model.getMap() + " mmHg");
+
             holder.ppTv.setText("PP: " + model.getPp() + " mmHg");
+
             holder.positionTv.setText(model.getBodyPosition());
-            holder.cuffTv.setText(model.getCuffLocation()+" * ");
+
+            holder.cuffTv.setText(model.getCuffLocation() + " * ");
+
             holder.pressureStatusTv.setText(model.getStatus());
+
             holder.pulseTv.setText(model.getPulse() + "BPM");
+
             holder.diasTv.setText(model.getDiastolic() + "mmHg");
+
             holder.sysTv.setText(model.getSystolic() + "/");
+
             holder.dateText.setText(model.getDate());
 
             holder.parentLayout.setOnClickListener(new View.OnClickListener() {

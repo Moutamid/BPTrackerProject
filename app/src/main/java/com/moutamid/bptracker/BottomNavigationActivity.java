@@ -37,9 +37,6 @@ public class BottomNavigationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_navigation);
 
-        utils.storeString(BottomNavigationActivity.this, "weight", "kg");
-        utils.storeString(BottomNavigationActivity.this, "classification", "JNC7");
-
         BottomNavigationView navView = findViewById(R.id.nav_view);
         profileLayout = findViewById(R.id.profile_bg_bottom_activity);
         profileLetterTv = findViewById(R.id.profile_text_view_activity_bottom);
@@ -191,6 +188,7 @@ public class BottomNavigationActivity extends AppCompatActivity {
             profileLayout.setBackgroundColor(color);
             profileLetterTv.setText(name);
 
+            loadFragment(new ReadingsFragment());
         }
 
     }
