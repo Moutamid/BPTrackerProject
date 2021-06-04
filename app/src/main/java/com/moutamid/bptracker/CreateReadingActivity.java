@@ -243,28 +243,32 @@ public class CreateReadingActivity extends AppCompatActivity {
                 if (pulseStr == null || pulseStr.isEmpty()) {
                     Toast.makeText(context, "Pulse is empty!", Toast.LENGTH_SHORT).show();
                     return;
-                } else {
-                    pulseStr = pulseStr + "BPM";
                 }
+//                else {
+//                    pulseStr = pulseStr + "BPM";
+//                }
                 if (weightStr == null || weightStr.isEmpty()) {
                     weightStr = "null";
-                    return;
-                } else {
-                    weightStr = weightStr + utils.getStoredString(context, "weight");
+//                    return;
                 }
+//                else {
+//                    weightStr = weightStr + utils.getStoredString(context, "weight");
+//                }
                 if (spo2Str == null || spo2Str.isEmpty()) {
                     spo2Str = "null";
-                    return;
-                } else {
-                    spo2Str = spo2Str + "% SpO2";
+//                    return;
                 }
+//                else {
+//                    spo2Str = spo2Str + "% SpO2";
+//                }
 
                 if (glucoseStr == null || glucoseStr.isEmpty()) {
                     glucoseStr = "null";
-                    return;
-                } else {
-                    glucoseStr = glucoseStr + "mmolL";
+//                    return;
                 }
+//                else {
+//                    glucoseStr = glucoseStr + "mmolL";
+//                }
 
                 if (bodyPositionStr == null || bodyPositionStr.isEmpty()) {
                     Toast.makeText(context, "Please select a body position!", Toast.LENGTH_SHORT).show();
@@ -302,15 +306,18 @@ public class CreateReadingActivity extends AppCompatActivity {
                 int systolicInt = Integer.parseInt(systolicStr);
                 int diastolicInt = Integer.parseInt(diastolicStr);
                 readingModel.setSystolic(systolicStr);
-                readingModel.setDiastolic(diastolicStr + "mmHg");
+                readingModel.setDiastolic(diastolicStr);
                 readingModel.setStatus(getPressureStageStatus(systolicInt, diastolicInt));
                 readingModel.setColor(currentColor);
-                readingModel.setPp("PP: " + (systolicInt - diastolicInt) + " mmHg");
-                readingModel.setMap("MAP: " + (
+                readingModel.setPp((systolicInt - diastolicInt) + "");
+                readingModel.setMap((
                         (systolicInt + (2 * diastolicInt)) / 3
-                ) + " mmHg");
+                ) + "");
+
+                String profileKey = utils.getStoredString(context, "currentProfileKey");
 
                 databaseReference.child("readings").child(mAuth.getCurrentUser().getUid())
+                        .child(profileKey)
                         .child(key)
                         .setValue(readingModel)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {

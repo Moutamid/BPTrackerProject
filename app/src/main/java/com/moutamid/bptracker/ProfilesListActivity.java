@@ -181,6 +181,13 @@ public class ProfilesListActivity extends AppCompatActivity {
                                             .child(auth.getCurrentUser().getUid())
                                             .child(profilesArrayList.get(position).getPushKey())
                                             .removeValue();
+
+                                    databaseReference
+                                            .child("readings")
+                                            .child(auth.getCurrentUser().getUid())
+                                            .child(profilesArrayList.get(position).getPushKey())
+                                            .removeValue();
+
 //TODO: ALSO DELETE ALL THE OTHER CHILDS IN THE READINGS SECTION
                                     dialogInterface.dismiss();
                                 }

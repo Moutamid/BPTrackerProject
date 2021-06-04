@@ -31,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.moutamid.bptracker.CreateReadingActivity;
 import com.moutamid.bptracker.R;
+import com.moutamid.bptracker.Utils;
 
 import java.util.ArrayList;
 
@@ -70,7 +71,11 @@ public class ReadingsFragment extends Fragment {
         progressDialog.setMessage("Loading...");
 
         progressDialog.show();
+
+        String profileKey = new Utils().getStoredString(getActivity(), "currentProfileKey");
+
         databaseReference.child("readings").child(mAuth.getCurrentUser().getUid())
+                .child(profileKey)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -137,6 +142,7 @@ public class ReadingsFragment extends Fragment {
 
     private class RecyclerViewAdapterMessages extends Adapter
             <RecyclerViewAdapterMessages.ViewHolderRightMessage> {
+        String consonant = new Utils().getStoredString(getActivity(), "weight");
 
         @NonNull
         @Override
@@ -151,17 +157,17 @@ public class ReadingsFragment extends Fragment {
 
             //            LinearLayout extraLayout;
 
-            holder.glucoseTv.setText(model.getGlucose());
-            holder.spo2Tv.setText(model.getSpo2());
-            holder.weightTv.setText(model.getWeight());
-            holder.mapTv.setText(model.getMap());
-            holder.ppTv.setText(model.getPp());
+            holder.glucoseTv.setText(model.getGlucose() + "mmolL");
+            holder.spo2Tv.setText(model.getSpo2() + "% SpO2");
+            holder.weightTv.setText(model.getWeight() + consonant);
+            holder.mapTv.setText("MAP: " + model.getMap() + " mmHg");
+            holder.ppTv.setText("PP: " + model.getPp() + " mmHg");
             holder.positionTv.setText(model.getBodyPosition());
-            holder.cuffTv.setText(model.getCuffLocation());
+            holder.cuffTv.setText(model.getCuffLocation()+" * ");
             holder.pressureStatusTv.setText(model.getStatus());
-            holder.pulseTv.setText(model.getPulse());
-            holder.diasTv.setText(model.getDiastolic());
-            holder.sysTv.setText(model.getSystolic()+"/");
+            holder.pulseTv.setText(model.getPulse() + "BPM");
+            holder.diasTv.setText(model.getDiastolic() + "mmHg");
+            holder.sysTv.setText(model.getSystolic() + "/");
             holder.dateText.setText(model.getDate());
 
             holder.parentLayout.setOnClickListener(new View.OnClickListener() {
