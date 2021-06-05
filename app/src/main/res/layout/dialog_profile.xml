@@ -103,6 +103,17 @@
         app:drawableStartCompat="@drawable/ic_baseline_group_24" />
 
     <TextView
+        android:id="@+id/export_and_send_text_view_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:drawablePadding="10dp"
+        android:drawableTint="@color/grey_500"
+        android:gravity="center_vertical"
+        android:text="Export and send"
+        app:drawableStartCompat="@drawable/ic_baseline_send_24" />
+
+    <TextView
         android:id="@+id/settings_text_view_dialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

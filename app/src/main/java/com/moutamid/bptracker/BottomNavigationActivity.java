@@ -164,6 +164,15 @@ private         BottomNavigationView navView;
                         dialog.dismiss();
                     }
                 });
+                dialog.findViewById(R.id.export_and_send_text_view_dialog).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        startActivity(new Intent(BottomNavigationActivity.this, PdfCreater.class));
+
+                        dialog.dismiss();
+                    }
+                });
                 dialog.show();
                 dialog.getWindow().setAttributes(layoutParams);
 

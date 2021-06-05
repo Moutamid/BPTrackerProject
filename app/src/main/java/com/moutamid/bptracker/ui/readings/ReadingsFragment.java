@@ -137,7 +137,7 @@ public class ReadingsFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setReverseLayout(true);
         conversationRecyclerView.setLayoutManager(linearLayoutManager);
-        conversationRecyclerView.setHasFixedSize(true);
+//        conversationRecyclerView.setHasFixedSize(true);
         conversationRecyclerView.setNestedScrollingEnabled(false);
 
         conversationRecyclerView.setAdapter(adapter);

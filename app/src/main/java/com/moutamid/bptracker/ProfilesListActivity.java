@@ -109,7 +109,7 @@ public class ProfilesListActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setReverseLayout(true);
         conversationRecyclerView.setLayoutManager(linearLayoutManager);
-        conversationRecyclerView.setHasFixedSize(true);
+//        conversationRecyclerView.setHasFixedSize(true);
         conversationRecyclerView.setNestedScrollingEnabled(false);
 
         conversationRecyclerView.setAdapter(adapter);
