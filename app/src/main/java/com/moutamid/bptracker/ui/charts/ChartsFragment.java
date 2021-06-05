@@ -1,19 +1,29 @@
 package com.moutamid.bptracker.ui.charts;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager.widget.ViewPager;
 
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
@@ -30,8 +40,11 @@ import com.anychart.enums.HoverMode;
 import com.anychart.enums.LegendLayout;
 import com.anychart.enums.Position;
 import com.anychart.enums.TooltipPositionMode;
+import com.moutamid.bptracker.ColumnChartFragment;
+import com.moutamid.bptracker.PieChartFragment;
 import com.moutamid.bptracker.R;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,14 +53,133 @@ public class ChartsFragment extends Fragment {
 
     private View root;
 
-    private RelativeLayout pieLayout, columnLayout;
     private ImageView pieBtn, columnBtn;
+
+    private ViewPagerFragmentAdapter adapter;
+    private ViewPager viewPager;
+
+    private void setupViewPager(ViewPager viewPager) {
+
+        // Adding Fragments to Adapter
+        adapter.addFragment(new PieChartFragment());
+        adapter.addFragment(new ColumnChartFragment());
+
+        // Setting Adapter To ViewPager
+        viewPager.setOffscreenPageLimit(2);
+        viewPager.setAdapter(adapter);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                switch (position) {
+                    case 0:
+                        pieBtn.setBackgroundResource(R.drawable.bg_charts_options);
+                        columnBtn.setBackgroundResource(0);
+                        break;
+                    case 1:
+                        pieBtn.setBackgroundResource(0);
+                        columnBtn.setBackgroundResource(R.drawable.bg_charts_options);
+                        break;
+                }
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
+
+    }
+
+    public static class NonSwipableViewPager extends ViewPager {
+
+
+        public NonSwipableViewPager(@NonNull Context context) {
+            super(context);
+        }
+
+        public NonSwipableViewPager(@NonNull Context context, @Nullable AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(MotionEvent ev) {
+            return false;
+        }
+
+        @Override
+        public boolean onTouchEvent(MotionEvent ev) {
+            return false;
+        }
+
+        public void setMyScroller() {
+
+            try {
+                Class<?> viewpager = ViewPager.class;
+                Field scroller = viewpager.getDeclaredField("mScroller");
+                scroller.setAccessible(true);
+                scroller.set(this, new MyScroller(getContext()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        public class MyScroller extends Scroller {
+
+            public MyScroller(Context context) {
+                super(context, new DecelerateInterpolator());
+            }
+
+            @Override
+            public void startScroll(int startX, int startY, int dx, int dy, int duration) {
+                super.startScroll(startX, startY, dx, dy, 350);
+            }
+        }
+    }
+
+    public static class ViewPagerFragmentAdapter extends FragmentStatePagerAdapter {
+
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+
+        public void addFragment(Fragment fragment) {
+            mFragmentList.add(fragment);
+        }
+
+        public ViewPagerFragmentAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+    }
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_charts, container, false);
 
-        pieLayout = root.findViewById(R.id.pieLayout);
-        columnLayout = root.findViewById(R.id.columnLayout);
+        viewPager = root.findViewById(R.id.view_pager_charts);
+
+        if (getActivity() == null)
+            return root;
+
+        adapter = new ViewPagerFragmentAdapter(getActivity().getSupportFragmentManager());
+
+        setupViewPager(viewPager);
 
         pieBtn = root.findViewById(R.id.pieBtn);
         columnBtn = root.findViewById(R.id.column_btn);
@@ -55,107 +187,23 @@ public class ChartsFragment extends Fragment {
         pieBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (pieLayout.getVisibility() == View.GONE) {
-                    pieLayout.setVisibility(View.VISIBLE);
-                    pieBtn.setBackgroundResource(R.drawable.bg_charts_options);
-                    columnBtn.setBackgroundResource(0);
-                    columnLayout.setVisibility(View.GONE);
-                } else {
-                    pieBtn.setBackgroundResource(0);
-                    columnBtn.setBackgroundResource(R.drawable.bg_charts_options);
-                    pieLayout.setVisibility(View.GONE);
-                    columnLayout.setVisibility(View.VISIBLE);
-                }
+                viewPager.setCurrentItem(0);
+                pieBtn.setBackgroundResource(R.drawable.bg_charts_options);
+                columnBtn.setBackgroundResource(0);
             }
         });
 
-        setColumnChart();
-        setPieChart();
+        columnBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewPager.setCurrentItem(1);
+                pieBtn.setBackgroundResource(0);
+                columnBtn.setBackgroundResource(R.drawable.bg_charts_options);
+            }
+        });
 
         return root;
     }
 
-    private void setColumnChart() {
-        AnyChartView anyChartView = root.findViewById(R.id.any_chart_view_column);
-        anyChartView.setProgressBar(root.findViewById(R.id.progress_bar_column));
 
-        Cartesian cartesian = AnyChart.column();
-
-        List<DataEntry> data = new ArrayList<>();
-        data.add(new ValueDataEntry("Rouge", 80540));
-        data.add(new ValueDataEntry("Foundation", 94190));
-        data.add(new ValueDataEntry("Mascara", 102610));
-//        data.add(new ValueDataEntry("Lip gloss", 110430));
-//        data.add(new ValueDataEntry("Lipstick", 128000));
-//        data.add(new ValueDataEntry("Nail polish", 143760));
-//        data.add(new ValueDataEntry("Eyebrow pencil", 170670));
-//        data.add(new ValueDataEntry("Eyeliner", 213210));
-//        data.add(new ValueDataEntry("Eyeshadows", 249980));
-
-        Column column = cartesian.column(data);
-
-        column.tooltip()
-                .titleFormat("{%X}")
-                .position(Position.CENTER_BOTTOM)
-                .anchor(Anchor.CENTER_BOTTOM)
-                .offsetX(0d)
-                .offsetY(5d)
-                .format("${%Value}{groupsSeparator: }");
-
-        cartesian.animation(true);
-        cartesian.title("Top 10 Cosmetic Products by Revenue");
-
-        cartesian.yScale().minimum(0d);
-
-        cartesian.yAxis(0).labels().format("${%Value}{groupsSeparator: }");
-
-        cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
-        cartesian.interactivity().hoverMode(HoverMode.BY_X);
-
-        cartesian.xAxis(0).title("Product");
-        cartesian.yAxis(0).title("Revenue");
-
-        anyChartView.setChart(cartesian);
-
-    }
-
-    private void setPieChart() {
-        AnyChartView anyChartView = root.findViewById(R.id.any_chart_view_pie);
-        anyChartView.setProgressBar(root.findViewById(R.id.progress_bar_pie));
-
-        Pie pie = AnyChart.pie();
-
-        pie.setOnClickListener(new ListenersInterface.OnClickListener(new String[]{"x", "value"}) {
-            @Override
-            public void onClick(Event event) {
-//                Toast.makeText(getActivity(), event.getData().get("x") + ":" + event.getData().get("value"), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-        List<DataEntry> data = new ArrayList<>();
-        data.add(new ValueDataEntry("Apples", 2));
-        data.add(new ValueDataEntry("Pears", 3));
-        data.add(new ValueDataEntry("Bananas", 4));
-        data.add(new ValueDataEntry("Orange", 1));
-
-        pie.data(data);
-
-        pie.title("Fruits imported in 2015 (in kg)");
-
-        pie.labels().position("outside");
-
-        pie.legend().title().enabled(true);
-        pie.legend().title()
-                .text("Retail channels")
-                .padding(0d, 0d, 10d, 0d);
-
-        pie.legend()
-                .position("center-bottom")
-                .itemsLayout(LegendLayout.HORIZONTAL)
-                .align(Align.CENTER);
-
-        anyChartView.setChart(pie);
-
-    }
 }

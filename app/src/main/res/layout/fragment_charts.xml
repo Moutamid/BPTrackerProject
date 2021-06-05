@@ -7,75 +7,42 @@
     tools:context=".ui.charts.ChartsFragment">
 
     <LinearLayout
+        android:id="@+id/top_layout_charts"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
-        android:layout_margin="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/bg_outline_box"
         android:orientation="horizontal"
         android:weightSum="2">
 
         <ImageView
+            android:id="@+id/pieBtn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:id="@+id/column_btn"
+            android:padding="5dp"
             android:background="@drawable/bg_charts_options"
+            android:src="@drawable/ic_baseline_pie_chart_grey_outline_24"
+            app:tint="@color/red_500" />
+
+        <ImageView
+            android:id="@+id/column_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:padding="5dp"
             android:rotation="90"
             android:src="@drawable/ic_baseline_bar_chart_24"
             app:tint="@color/red_500" />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="5dp"
-            android:id="@+id/pieBtn"
-            android:src="@drawable/ic_baseline_pie_chart_grey_outline_24"
-            app:tint="@color/red_500" />
-
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/columnLayout"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager_charts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:orientation="vertical">
-
-        <com.anychart.AnyChartView
-            android:id="@+id/any_chart_view_column"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="-20dp" />
-
-        <ProgressBar
-            android:id="@+id/progress_bar_column"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/pieLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <com.anychart.AnyChartView
-            android:id="@+id/any_chart_view_pie"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="-20dp" />
-
-        <ProgressBar
-            android:id="@+id/progress_bar_pie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
+        android:layout_below="@id/top_layout_charts" />
 
 </RelativeLayout>
