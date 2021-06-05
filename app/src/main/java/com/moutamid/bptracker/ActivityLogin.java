@@ -68,7 +68,6 @@ public class ActivityLogin extends AppCompatActivity {
         // Initializing Views
         initViews();
 
-
     }
 
     private View.OnClickListener loginBtnListener() {

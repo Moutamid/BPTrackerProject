@@ -1,6 +1,7 @@
 package com.moutamid.bptracker;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,7 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -41,7 +44,6 @@ public class ActivitySignUp extends AppCompatActivity {
     private String passwordStr;
 
     private String confirmedPasswordStr;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,36 @@ public class ActivitySignUp extends AppCompatActivity {
         progressDialog.setMessage("Signing you in...");
 
         initViews();
+
+        if (getIntent().hasExtra("anon")) {
+            findViewById(R.id.skip_sign_up).setVisibility(View.GONE);
+        }
+
+        findViewById(R.id.skip_sign_up).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                progressDialog.show();
+                mAuth.signInAnonymously().addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.dismiss();
+
+                        if (task.isSuccessful()) {
+
+                            finish();
+                            Intent intent = new Intent(ActivitySignUp.this, BottomNavigationActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+
+                        } else {
+                            Toast.makeText(ActivitySignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+
+            }
+        });
 
     }
 
@@ -162,6 +194,24 @@ public class ActivitySignUp extends AppCompatActivity {
             emailEditText.requestFocus();
         } else {
 
+            if (mAuth.getCurrentUser() != null) {
+                if (mAuth.getCurrentUser().isAnonymous()) {
+                    AuthCredential credential = EmailAuthProvider.getCredential(emailStr, passwordStr);
+                    mAuth.getCurrentUser().linkWithCredential(credential)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        addUserDetailsToDatabase();
+                                    } else {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(ActivitySignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                    return;
+                }
+            }
             mAuth.createUserWithEmailAndPassword(emailStr, passwordStr).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -244,9 +294,8 @@ public class ActivitySignUp extends AppCompatActivity {
 
                     finish();
                     Intent intent = new Intent(ActivitySignUp.this, BottomNavigationActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
-
                     Toast.makeText(ActivitySignUp.this, "You are signed up!", Toast.LENGTH_SHORT).show();
 
                 } else {

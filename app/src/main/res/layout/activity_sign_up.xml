@@ -7,18 +7,30 @@
     android:background="@color/white"
     tools:context=".ActivitySignUp">
 
+    <TextView
+        android:id="@+id/skip_sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:text="Skip login"
+        android:textSize="17sp" />
+
     <LinearLayout
         android:id="@+id/toplinearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/backbtn_signup"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_margin="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
             android:src="@drawable/ic_baseline_arrow_back_24" />
 
         <TextView
@@ -27,17 +39,19 @@
             android:gravity="center"
             android:text="Let's Get Started!"
             android:textColor="#000000"
-            android:textSize="25sp"
+            android:textSize="23sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp"
             android:gravity="center"
             android:text="Create an account to get all the features"
             android:textColor="@color/greyishblue"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 
@@ -59,7 +73,7 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/bg_edittext_unclicked_sign_up"
             android:orientation="horizontal"
-            android:padding="20dp">
+            android:padding="15dp">
 
             <ImageView
                 android:layout_width="17dp"
@@ -90,7 +104,7 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/bg_edittext_unclicked_sign_up"
             android:orientation="horizontal"
-            android:padding="20dp">
+            android:padding="15dp">
 
             <ImageView
                 android:layout_width="17dp"
@@ -122,7 +136,7 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/bg_edittext_unclicked_sign_up"
             android:orientation="horizontal"
-            android:padding="20dp">
+            android:padding="15dp">
 
             <ImageView
                 android:layout_width="17dp"
@@ -155,7 +169,7 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/bg_edittext_unclicked_sign_up"
             android:orientation="horizontal"
-            android:padding="20dp">
+            android:padding="15dp">
 
             <ImageView
                 android:layout_width="17dp"

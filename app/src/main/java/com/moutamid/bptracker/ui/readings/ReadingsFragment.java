@@ -62,6 +62,7 @@ public class ReadingsFragment extends Fragment {
         });
 
         if (getActivity() == null) {
+            root.findViewById(R.id.no_data_text_view).setVisibility(View.VISIBLE);
             return root;
         }
 
@@ -79,11 +80,13 @@ public class ReadingsFragment extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (getActivity() == null) {
+                            root.findViewById(R.id.no_data_text_view).setVisibility(View.VISIBLE);
                             Log.d(TAG, "onDataChange: " + "activity is null");
                             return;
                         }
 
                         if (!snapshot.exists()) {
+                            root.findViewById(R.id.no_data_text_view).setVisibility(View.VISIBLE);
 //                            if (!getActivity().isDestroyed())
                             progressDialog.dismiss();
                             return;
@@ -141,6 +144,10 @@ public class ReadingsFragment extends Fragment {
         conversationRecyclerView.setNestedScrollingEnabled(false);
 
         conversationRecyclerView.setAdapter(adapter);
+
+        if (adapter.getItemCount() == 0) {
+            root.findViewById(R.id.no_data_text_view).setVisibility(View.VISIBLE);
+        }
 
     }
 

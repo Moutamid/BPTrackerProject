@@ -95,8 +95,10 @@ public class ChartsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_charts, container, false);
 
-        if (getActivity() == null)
+        if (getActivity() == null) {
+            root.findViewById(R.id.no_data_text_view_charts).setVisibility(View.VISIBLE);
             return root;
+        }
 
         String profileKey = new Utils().getStoredString(getActivity(), "currentProfileKey");
 
@@ -106,12 +108,15 @@ public class ChartsFragment extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (getActivity() == null) {
+                            root.findViewById(R.id.no_data_text_view_charts).setVisibility(View.VISIBLE);
                             Log.d(TAG, "onDataChange: " + "activity is null");
                             return;
                         }
 
                         if (!snapshot.exists()) {
-//                            if (!getActivity().isDestroyed())
+
+                            root.findViewById(R.id.no_data_text_view_charts).setVisibility(View.VISIBLE);
+                            //                            if (!getActivity().isDestroyed())
 //                            progressDialog.dismiss();
                             return;
                         }
@@ -127,6 +132,8 @@ public class ChartsFragment extends Fragment {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
+                        root.findViewById(R.id.no_data_text_view_charts).setVisibility(View.VISIBLE);
+
 //                        if (!getActivity().isDestroyed())
 //                        progressDialog.dismiss();
                         Toast.makeText(getActivity(), error.toException().getMessage(), Toast.LENGTH_SHORT).show();

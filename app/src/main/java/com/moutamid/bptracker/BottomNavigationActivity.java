@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.moutamid.bptracker.ui.charts.ChartsFragment;
 import com.moutamid.bptracker.ui.readings.ReadingsFragment;
 import com.moutamid.bptracker.ui.statistics.StatisticsFragment;
@@ -31,7 +32,7 @@ public class BottomNavigationActivity extends AppCompatActivity {
     private RelativeLayout profileLayout;
     private TextView profileLetterTv;
     private Utils utils = new Utils();
-
+private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private TextView headerTextView;
 private         BottomNavigationView navView;
 
@@ -110,6 +111,18 @@ private         BottomNavigationView navView;
                 profileLetterDialog.setText(name);
                 profileNameDialog.setText(name);
 
+                if (mAuth.getCurrentUser().isAnonymous())
+                dialog.findViewById(R.id.login_text_view_dialog).setVisibility(View.VISIBLE);
+
+                dialog.findViewById(R.id.login_text_view_dialog).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        startActivity(new Intent(BottomNavigationActivity.this, ActivitySignUp.class).putExtra("anon", true));
+
+                        dialog.dismiss();
+                    }
+                });
                 dialog.findViewById(R.id.manage_current_profile_text_view_dialog).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

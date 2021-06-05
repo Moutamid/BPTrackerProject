@@ -70,6 +70,18 @@
         android:background="@color/grey" />
 
     <TextView
+        android:id="@+id/login_text_view_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:visibility="visible"
+        android:drawablePadding="10dp"
+        android:drawableTint="@color/grey_500"
+        android:gravity="center_vertical"
+        android:text="Login to backup and restore your data"
+        app:drawableStartCompat="@drawable/ic_baseline_login_24" />
+
+    <TextView
         android:id="@+id/switch_profile_text_view_dialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

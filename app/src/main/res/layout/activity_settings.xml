@@ -58,12 +58,12 @@
         android:textSize="15sp" />
 
     <TextView
+        android:id="@+id/classification_option_settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:text="JNC7"
-        android:id="@+id/classification_option_settings"
         android:textSize="15sp" />
 
     <View
@@ -94,12 +94,32 @@
         android:textSize="15sp" />
 
     <TextView
+        android:id="@+id/weight_option_settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:id="@+id/weight_option_settings"
         android:text="kg"
         android:textSize="15sp" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/grey" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:id="@+id/rate_app_btn"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="RATE APP"
+        android:textColor="@color/skyBlue"
+        android:textSize="15sp"
+        android:textStyle="bold" />
 
 </LinearLayout>
