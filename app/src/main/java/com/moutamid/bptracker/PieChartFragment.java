@@ -39,6 +39,12 @@ public class PieChartFragment extends Fragment {
         return view;
     }
 
+    private int getIntValue(String name) {
+        if (getActivity() != null)
+            return new Utils().getStoredInteger(getActivity(), name);
+        else return 0;
+    }
+
     private void setPieChart() {
         AnyChartView anyChartView = view.findViewById(R.id.any_chart_view_pie);
         anyChartView.setProgressBar(view.findViewById(R.id.progress_bar_pie));
@@ -54,21 +60,21 @@ public class PieChartFragment extends Fragment {
 
 
         List<DataEntry> data = new ArrayList<>();
-        data.add(new ValueDataEntry("Normal", 2));
-        data.add(new ValueDataEntry("Elevated", 3));
-        data.add(new ValueDataEntry("Hypertension stage 1", 4));
-        data.add(new ValueDataEntry("Hypertension stage 2", 1));
-        data.add(new ValueDataEntry("Hypertension crisis", 5));
+        data.add(new ValueDataEntry("Normal", getIntValue("statusNormalAverage")));
+        data.add(new ValueDataEntry("Elevated", getIntValue("statusElevatedAverage")));
+        data.add(new ValueDataEntry("Hypertension stage 1", getIntValue("statusHypertensionStage1")));
+        data.add(new ValueDataEntry("Hypertension stage 2", getIntValue("statusHypertensionStage2")));
+        data.add(new ValueDataEntry("Hypertension crisis", getIntValue("statusHypertensiveCrisisAverage")));
 
         pie.data(data);
 
-        pie.title("");
+        pie.title("Blood pressure stages");
 
         pie.labels().position("outside");
 
         pie.legend().title().enabled(true);
         pie.legend().title()
-                .text("")
+                .text("Values")
                 .padding(0d, 0d, 10d, 0d);
 
         pie.legend()

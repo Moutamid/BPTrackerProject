@@ -39,6 +39,12 @@ public class ColumnChartFragment extends Fragment {
         return view;
     }
 
+    private int getIntValue(String name) {
+        if (getActivity() != null)
+            return new Utils().getStoredInteger(getActivity(), name);
+        else return 0;
+    }
+
     private void setColumnChart() {
         AnyChartView anyChartView = view.findViewById(R.id.any_chart_view_column);
         anyChartView.setProgressBar(view.findViewById(R.id.progress_bar_column));
@@ -46,15 +52,16 @@ public class ColumnChartFragment extends Fragment {
         Cartesian cartesian = AnyChart.column();
 
         List<DataEntry> data = new ArrayList<>();
-        data.add(new ValueDataEntry("Rouge", 80540));
-        data.add(new ValueDataEntry("Foundation", 94190));
-        data.add(new ValueDataEntry("Mascara", 102610));
-        data.add(new ValueDataEntry("Lip gloss", 110430));
-        data.add(new ValueDataEntry("Lipstick", 128000));
-        data.add(new ValueDataEntry("Nail polish", 143760));
-        data.add(new ValueDataEntry("Eyebrow pencil", 170670));
-        data.add(new ValueDataEntry("Eyeliner", 213210));
-        data.add(new ValueDataEntry("Eyeshadows", 249980));
+        data.add(new ValueDataEntry("Systolic", getIntValue("systolicAverage")));
+        data.add(new ValueDataEntry("Diastolic", getIntValue("diastolicAverage")));
+        data.add(new ValueDataEntry("Pulse", getIntValue("pulseAverage")));
+
+//        data.add(new ValueDataEntry("Lip gloss", 110430));
+//        data.add(new ValueDataEntry("Lipstick", 128000));
+//        data.add(new ValueDataEntry("Nail polish", 143760));
+//        data.add(new ValueDataEntry("Eyebrow pencil", 170670));
+//        data.add(new ValueDataEntry("Eyeliner", 213210));
+//        data.add(new ValueDataEntry("Eyeshadows", 249980));
 
         Column column = cartesian.column(data);
 
@@ -64,20 +71,20 @@ public class ColumnChartFragment extends Fragment {
                 .anchor(Anchor.CENTER_BOTTOM)
                 .offsetX(0d)
                 .offsetY(5d)
-                .format("${%Value}{groupsSeparator: }");
+                .format("{%Value}{groupsSeparator: }");
 
         cartesian.animation(true);
-        cartesian.title("Top 10 Cosmetic Products by Revenue");
+        cartesian.title("Blood pressure readings");
 
         cartesian.yScale().minimum(0d);
 
-        cartesian.yAxis(0).labels().format("${%Value}{groupsSeparator: }");
+        cartesian.yAxis(0).labels().format("{%Value}{groupsSeparator: }");
 
         cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
         cartesian.interactivity().hoverMode(HoverMode.BY_X);
 
-        cartesian.xAxis(0).title("Product");
-        cartesian.yAxis(0).title("Revenue");
+        cartesian.xAxis(0).title("Pressure type");
+        cartesian.yAxis(0).title("Reading value");
 
         anyChartView.setChart(cartesian);
 

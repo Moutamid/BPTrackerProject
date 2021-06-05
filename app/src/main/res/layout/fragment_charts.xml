@@ -33,7 +33,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="5dp"
-            android:rotation="90"
             android:src="@drawable/ic_baseline_bar_chart_24"
             app:tint="@color/red_500" />
 
