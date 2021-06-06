@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     android:id="@+id/parent_layout_readings"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp">
+
+    <TextView
+        android:id="@+id/date_text_viewReading"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="5dp"
+        android:maxLength="5"
+        android:maxLines="1"
+        android:text="21-02-2021"
+        android:textColor="@color/lightBlackSpotify"
+        android:textSize="13sp" />
 
     <RelativeLayout
         android:id="@+id/color_layout_readings"
@@ -12,6 +24,7 @@
         android:layout_alignBottom="@id/header_layout"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/date_text_viewReading"
         android:background="@color/red_500" />
 
     <LinearLayout
@@ -24,101 +37,167 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp">
 
-        <TextView
-            android:id="@+id/date_text_viewReading"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Date 21 02 2021" />
+            android:gravity="center">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="180/"
-                android:id="@+id/systolic_text_viewReading"
-                android:textSize="20sp" />
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@id/pulse_text_viewReading"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/systolic_text_viewReading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="180/"
+                    android:textColor="@color/black"
+                    android:textSize="23sp" />
+
+                <TextView
+                    android:id="@+id/diastolic_text_viewReading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="35 mmHg"
+                    android:textColor="@color/black"
+                    android:textSize="23sp" />
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/diastolic_text_viewReading"
+                android:id="@+id/pulse_text_viewReading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="35 mmHg"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:autoSizeTextType="uniform"
+                android:breakStrategy="balanced"
+                android:maxLines="1"
+                android:text="75 BPM"
+                android:textColor="@color/black"
                 android:textSize="20sp" />
 
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/pulse_text_viewReading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="75 BPM" />
+        </RelativeLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/extra_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/pressureStatus_text_viewReading"
-            android:text="Hypertension stage 2" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/cuffLocation_text_viewReading"
-                android:text="Left arm" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/bodyPosition_text_viewReading"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/pressureStatus_text_viewReading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autoSizeTextType="uniform"
+                    android:breakStrategy="balanced"
+                    android:maxLines="1"
+                    android:text="Hypertension stage 2"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/cuffLocation_text_viewReading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:autoSizeTextType="uniform"
+                    android:breakStrategy="balanced"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:text="Left arm"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/bodyPosition_text_viewReading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autoSizeTextType="uniform"
+                    android:breakStrategy="balanced"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:text=" Seated"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Seated" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/pp_text_viewReading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PP: 145 mmHg"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/map_text_viewReading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp"
+                    android:text="MAP: 83 mmHg"
+                    android:textColor="@color/black" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/weight_text_viewReading"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autoSizeTextType="uniform"
+                    android:breakStrategy="balanced"
+                    android:maxLines="1"
+                    android:text="58 kg"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/spo2_text_viewReading"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autoSizeTextType="uniform"
+                    android:breakStrategy="balanced"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:text="50 SpO2"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/glucose_text_viewReading"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autoSizeTextType="uniform"
+                    android:breakStrategy="balanced"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:text="68 mmolL"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
 
         </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/pp_text_viewReading"
-            android:text="PP: 145 mmHg" />
-
-        <TextView
-            android:id="@+id/map_text_viewReading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="MAP: 83 mmHg" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/weight_text_viewReading"
-            android:text="" />
-
-        <TextView
-            android:id="@+id/spo2_text_viewReading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="" />
-
-        <TextView
-            android:id="@+id/glucose_text_viewReading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="" />
-
-    </LinearLayout>
 
     </LinearLayout>
 

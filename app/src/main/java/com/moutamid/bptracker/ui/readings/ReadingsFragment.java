@@ -121,15 +121,22 @@ public class ReadingsFragment extends Fragment {
             progressDialog.dismiss();
     }
 
-    private String consonant;
+    private String weightConsonant;
+    private String bloodGlucoseConsonant;
+    private boolean hide = false;
+    private Utils utils = new Utils();
 
     private void initRecyclerView() {
 
         if (getActivity() == null) {
-            consonant = "null";
+            weightConsonant = "null";
+            bloodGlucoseConsonant = "null";
         } else {
-            consonant = new Utils().getStoredString(getActivity(), "weight");
+            hide = utils.getStoredBoolean(getActivity(), "hide_details");
+            weightConsonant = utils.getStoredString(getActivity(), "weight");
+            bloodGlucoseConsonant = utils.getStoredString(getActivity(), "blood_glucose");
         }
+
         conversationRecyclerView = root.findViewById(readings_recycler_view);
         conversationRecyclerView.addItemDecoration(new DividerItemDecoration(conversationRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
         adapter = new RecyclerViewAdapterMessages();
@@ -165,12 +172,14 @@ public class ReadingsFragment extends Fragment {
         public void onBindViewHolder(@NonNull final ViewHolderRightMessage holder, int position) {
             ReadingModel model = readingsArrayList.get(position);
 
-            //            LinearLayout extraLayout;
+            if (hide) {
+                holder.extraLayout.setVisibility(View.GONE);
+            }
 
             if (model.getGlucose().equals("null")) {
                 holder.glucoseTv.setVisibility(View.GONE);
             } else {
-                holder.glucoseTv.setText(model.getGlucose() + "mmolL");
+                holder.glucoseTv.setText(model.getGlucose() + bloodGlucoseConsonant);
             }
 
             if (model.getSpo2().equals("null")) {
@@ -184,7 +193,7 @@ public class ReadingsFragment extends Fragment {
                 holder.weightTv.setVisibility(View.GONE);
 
             } else {
-                holder.weightTv.setText(model.getWeight() + consonant);
+                holder.weightTv.setText(model.getWeight() + weightConsonant);
             }
 
             holder.mapTv.setText("MAP: " + model.getMap() + " mmHg");

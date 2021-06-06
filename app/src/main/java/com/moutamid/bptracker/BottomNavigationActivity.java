@@ -20,6 +20,7 @@ import com.moutamid.bptracker.ui.statistics.StatisticsFragment;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -32,14 +33,19 @@ public class BottomNavigationActivity extends AppCompatActivity {
     private RelativeLayout profileLayout;
     private TextView profileLetterTv;
     private Utils utils = new Utils();
-private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private TextView headerTextView;
-private         BottomNavigationView navView;
+    private BottomNavigationView navView;
+
+    private boolean showHideOption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_navigation);
+
+        showHideOption = new Utils().getStoredBoolean(
+                BottomNavigationActivity.this, "hide_details");
 
         navView = findViewById(R.id.nav_view);
         profileLayout = findViewById(R.id.profile_bg_bottom_activity);
@@ -54,6 +60,56 @@ private         BottomNavigationView navView;
         headerTextView = findViewById(R.id.action_bar_text_view);
 
         loadFragment(new ReadingsFragment());
+
+        findViewById(R.id.hide_options_image_view).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int menuOption;
+                if (showHideOption) {
+                    menuOption = R.menu.show_pop_menu;
+//                    showHideOption = false;
+                } else {
+                    menuOption = R.menu.hide_pop_menu;
+//                    showHideOption = true;
+                }
+
+                PopupMenu popupMenu = new PopupMenu(BottomNavigationActivity.this, view);
+                popupMenu.getMenuInflater().inflate(
+                        menuOption,
+                        popupMenu.getMenu()
+                );
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+
+                        if (menuOption == R.menu.show_pop_menu) {
+//                        if (menuItem.getItemId() == R.id.show_menu) {
+                            utils.storeBoolean(
+                                    BottomNavigationActivity.this,
+                                    "hide_details",
+                                    false
+                            );
+
+                            showHideOption = false;
+
+                        } else {
+                            utils.storeBoolean(
+                                    BottomNavigationActivity.this,
+                                    "hide_details",
+                                    true
+                            );
+
+                            showHideOption = true;
+                        }
+
+                        loadFragment(new ReadingsFragment());
+
+                        return true;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
 
 //        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -112,7 +168,7 @@ private         BottomNavigationView navView;
                 profileNameDialog.setText(name);
 
                 if (mAuth.getCurrentUser().isAnonymous())
-                dialog.findViewById(R.id.login_text_view_dialog).setVisibility(View.VISIBLE);
+                    dialog.findViewById(R.id.login_text_view_dialog).setVisibility(View.VISIBLE);
 
                 dialog.findViewById(R.id.login_text_view_dialog).setOnClickListener(new View.OnClickListener() {
                     @Override

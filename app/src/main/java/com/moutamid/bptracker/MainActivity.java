@@ -11,14 +11,15 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Utils utils = new Utils();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 //        setContentView(R.layout.activity_main);
 
-        new Utils().storeString(MainActivity.this, "weight", "kg");
-        new Utils().storeString(MainActivity.this, "classification", "JNC7");
+        storeFirstTimeSettings();
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -45,5 +46,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 2000);
 
+    }
+
+    private void storeFirstTimeSettings() {
+        if (!utils.getStoredBoolean(MainActivity.this, "firstTime")) {
+
+            utils.storeString(MainActivity.this, "weight", "kg");
+            utils.storeString(MainActivity.this, "classification", "JNC7");
+            utils.storeString(MainActivity.this, "blood_glucose", "mmolL");
+
+            utils.storeBoolean(MainActivity.this, "firstTime", true);
+        }
     }
 }
